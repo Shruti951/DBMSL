@@ -1,0 +1,28 @@
+
+
+create or replace function F_CheckAccNo(ACCOUNT_NO IN int)
+return integer
+as
+
+retvalue1 integer:=1;
+retvalue0 integer:=0;
+retreived_acc1 int:=0000;
+
+begin
+
+select accountno into retreived_acc1 from AccountDetails where accountno=ACCOUNT_NO;
+
+
+if(retreived_acc1!=0000) then
+return retvalue1;
+end if;
+
+end F_CheckAccNo;
+
+declare 
+answer integer; 
+user_no int:=:user_no;
+begin 
+answer:=F_CheckAccNo(user_no); 
+dbms_output.put_line('' || answer); 
+end; 
