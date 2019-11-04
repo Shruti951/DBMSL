@@ -1,0 +1,61 @@
+
+create table employee(e_no number(4),e_name varchar2(20),salary number(8));
+
+create table EmployeeBackUp(e_no number(3),e_name varchar2(20),salary number(8));
+
+
+
+--insert into Employee values(2,'Harsh',75000);
+--insert into Employee values(3,'Nandi',59000);
+create or replace trigger triggerLast
+after insert or update 
+on Employee
+for each row
+
+begin
+insert into EmployeeBackUp values(:NEW.e_no,:NEW.e_name,:NEW.salary);
+
+end triggerLast;
+
+
+select * from Employee;
+E_NO	E_NAME	SALARY
+1	Tejas	55000
+3	Nandi	59000
+11	Param	89900
+12	Praj	99900
+2	Harsh	75000
+10	HAns	80000
+
+
+
+select * from EmployeeBackUp;
+E_NO	E_NAME	SALARY
+11	Param	89900
+12	Praj	99900
+10	Shruti	80000
+- 	
+
+
+
+
+--update Employee set e_name='Praj123' where e_no=12;
+select * from Employee;
+
+E_NO	E_NAME	SALARY
+1	Tejas	55000
+3	Nandi	59000
+11	Param	89900
+12	Praj123	99900
+2	Harsh	75000
+10	HAns	80000
+
+
+
+select * from EmployeeBackUp;
+E_NO	E_NAME	SALARY
+11	Param	89900
+12	Praj	99900
+12	Praj123	99900
+10	Shruti	80000
+- 	- 	- 
