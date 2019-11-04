@@ -1,0 +1,21 @@
+ans 10&11
+---------
+
+create or replace procedure proc_Grade(rno number, name varchar2, marks number)
+is
+class varchar(20);
+
+begin
+if(marks>=990 and marks<=1500) then
+class := 'Distinction';
+elsif(marks>=900 and marks<=989) then
+class := 'First';
+elsif(marks>=899 and marks<=825) then
+class := 'second';
+end if;
+
+insert into stud_marks values(name, marks);
+insert into sresult values(rno, name, class);
+
+end;
+/
