@@ -1,0 +1,53 @@
+create table employee(e_no number(4),e_name varchar2(20),salary number(8));
+
+create table Tracking(e_no number(4),salary number(8));
+
+
+
+
+create or replace trigger triggerNEW123
+before update or insert of salary
+on Employee
+for each row
+
+begin
+if (:NEW.salary<50000) then
+raise_application_error(-20101,'The salary '||:NEW.salary||'is smaller than 50K');
+end if;
+
+insert into Tracking values(:NEW.e_no,:NEW.salary);
+
+end triggerNEW123;
+
+
+
+
+--insert into Employee values(2,'Harsh',75000);
+--insert into Employee values(3,'Nandi',59000);
+select * from Employee;
+E_NO	E_NAME	SALARY
+1	Tejas	55000
+3	Nandi	59000
+2	Harsh	75000
+3 rows returned in 0.01 seconds	        	Download
+
+select * from Tacking;
+E_NO	SALARY
+- 	-
+3	59000
+- 	-
+2	75000
+- 	-
+5 rows returned in 0.00 seconds	        	Download
+
+
+
+
+insert into Employee values(4,'Girish',4000);
+The salary 4000is smaller than 50K
+
+
+
+update Employee set salary=3000 where e_no=1;
+The salary 3000is smaller than 50K
+
