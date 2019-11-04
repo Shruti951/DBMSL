@@ -1,0 +1,62 @@
+--create table oldTable(roll_no number(4),name varchar(20));
+--insert into oldTable values(1,'Tejas');
+--insert into oldTable values(2,'Prachi');
+--insert into oldTable values(3,'Shah');
+--insert into oldTable values(4,'Brad');
+
+
+NEWTABLE
+ROLL_NO	NAME
+1	Tejas
+5	John
+2 rows returned in 0.02 seconds	        	Download
+
+OLDTABLE
+ROLL_NO	NAME
+1	Tejas
+4	Brad
+2	Prachi
+3	Shah
+
+
+
+declare 
+cursor c1 is select roll_no,name from oldTable;
+
+cursor c2 is select roll_no from newTable123;
+
+
+r number(3);
+rno number(3);
+name123 varchar(20);
+
+begin 
+open c1;
+open c2;
+
+loop
+
+fetch c1 into rno,name123;
+fetch c2 into r;
+
+
+exit when c1%found=false;
+if rno<>r then
+insert into newTable123 values(rno,name123);
+end if;
+
+end loop;
+close c1;
+end;
+/
+
+
+
+
+ROLL_NO	NAME
+1	Tejas
+5	John
+4	Brad
+2	Prachi
+3	Shah
+5 rows returned in 0.00 seconds	        	Download
